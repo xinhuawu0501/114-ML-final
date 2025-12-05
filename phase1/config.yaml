@@ -1,0 +1,54 @@
+seed_everything: 42 
+
+trainer:
+  max_epochs: 50 
+  log_every_n_steps: 1
+  gradient_clip_val: 1.0 
+  gradient_clip_algorithm: "norm"
+
+  callbacks:
+    - class_path: lightning.pytorch.callbacks.EarlyStopping
+      init_args:
+        monitor: 'Val/A_PREC'
+        patience: 3
+        mode: 'max'
+        
+    - class_path: lightning.pytorch.callbacks.ModelCheckpoint
+      init_args:
+        monitor: 'Val/A_PREC'
+        mode: 'max'
+        save_top_k: 1
+        filename: '{epoch:02d}-{step}'
+  logger:
+    class_path: lightning.pytorch.loggers.CSVLogger
+    init_args:
+      # This creates a folder inside 'lightning_logs' (or default_root_dir)
+      save_dir: logs
+      # This creates a subfolder for this specific experiment run, which effectively names the results
+      version: 'nostra_weight_noclip'
+    
+    class_path: lightning.pytorch.loggers.WandbLogger
+    init_args:
+      name: "nostra_weight_noclip"
+      save_dir: wandb/logs
+      log_model: True
+
+
+model:
+  num_classes: 4
+  encoder_model_name: "microsoft/BiomedNLP-PubMedBERT-base-uncased-abstract"
+  optimizer_name: 'adam'
+  criterion_name: 'ce'
+  warmup_steps: 0
+  decay_steps: 50000
+  num_training_steps: 50000
+  weight_decay: 0.01
+  freeze_bert: true
+  label_smoothing: false
+
+
+data:
+  batch_size: 50
+  eval_batch_size: 50
+  sampling_strategy: 'random' 
+  val_sampling_strategy: 'random'
