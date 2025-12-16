@@ -4,8 +4,8 @@ from tqdm import tqdm
 import torch
 
 # 1. Configuration
-INPUT_FILE = "../dataset/pr/train_nostra.csv"  # Your current train file
-OUTPUT_FILE = "../dataset/pr/train_augmented_nostra.csv"
+INPUT_FILE = "../dataset/train.csv"  # Your current train file
+OUTPUT_FILE = "../dataset/train_augmented.csv"
 TARGET_CLASS = 4  
 NUM_AUGMENTATIONS = 10 # How many new rows to create per original row
 

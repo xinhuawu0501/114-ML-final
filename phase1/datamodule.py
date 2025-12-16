@@ -93,8 +93,7 @@ class MIMICClassificationDataModule(pl.LightningDataModule):
     def __init__(
         self,
         use_code_descriptions: bool = False,
-        data_dir: str = "../dataset/",
-        task: str = "pr",
+        data_dir: str = "./dataset/",
         batch_size: int = 32,
         eval_batch_size: int = 16,
         tokenizer_name: str = "microsoft/BiomedNLP-PubMedBERT-base-uncased-abstract",
@@ -105,13 +104,13 @@ class MIMICClassificationDataModule(pl.LightningDataModule):
     ):
         super().__init__()
 
-        test_data = pd.read_csv(data_dir + task + "/test.csv").rename(
+        test_data = pd.read_csv(data_dir + "test.csv").rename(
             columns={"class": "labels"}
         )
-        train_data = pd.read_csv(data_dir + task + "/train.csv").rename(
+        train_data = pd.read_csv(data_dir + "train.csv").rename(
             columns={"class": "labels"}
         )
-        val_data = pd.read_csv(data_dir + task + "/val.csv").rename(
+        val_data = pd.read_csv(data_dir + "val.csv").rename(
             columns={"class": "labels"}
         )
         self.training_data = train_data
@@ -160,7 +159,6 @@ class MIMICClassificationDataModule(pl.LightningDataModule):
         self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name)
         self.collator = ClassifcationCollator(self.tokenizer, max_seq_len)
         self.num_workers = num_workers
-        self.task = task
         self.sampling_strategy = sampling_strategy
         self.val_sampling_strategy = val_sampling_strategy
 
