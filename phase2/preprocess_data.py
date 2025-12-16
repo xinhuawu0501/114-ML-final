@@ -70,7 +70,7 @@ def preprocess_and_merge(pred_path, transfers_path, output_path="stage2_input.cs
 if __name__ == "__main__":
     # 1. 設定檔案路徑
     # predictions.csv 就在專案根目錄，保持不變
-    PRED_CSV = "predictions.csv"
+    PRED_CSV = "../model_output/val/predictions.csv"
     
     # transfers.csv 在深層目錄，請使用這個相對路徑 (注意要用斜線 /)
     TRANSFERS_CSV = "physionet.org/files/mimiciv/3.1/hosp/transfers.csv/transfers.csv"
