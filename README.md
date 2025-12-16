@@ -1,10 +1,15 @@
+## Note
+
+1. Since the original data from MIMIC-IV is confidential, please apply for access from physionet. In this repo, we provide pre-processed data instead.
+2. Please create seperate virtual environment for phase 1 and phase 2
+
+# Phase 1
+
 ## How to initial dev env
 
 - Create venv with `python3 -m venv .venv`
 - `source .venv/bin/activate`
 - `pip install -r requirements.txt`
-
-# Phase 1
 
 ## To download pre-processed dataset
 
@@ -27,22 +32,29 @@
 
 `gdown --id 1IRiZzPiPpwlSj4CpRZPugzEevCU6utKW -O model_best.ckpt`
 
-- make sure checkpoint file locates in checkpoint/
+- make sure checkpoint file locates in phase1/
 
 ### Testing
 
-`python main.py test --ckpt_path "../checkpoint/model_best.ckpt" --config config.yaml`
+`python main.py test --ckpt_path "model_best.ckpt" --config config.yaml`
 
 # Phase 2
 
+## How to initial dev env
+
+- Create venv with `python3 -m venv .venv`
+- `source .venv/bin/activate`
+- `pip install -r requirements.txt`
+
 ## Data Preprocessing
 
-Run `python3 preprocess_data.py` to prepare the data.
-This script transforms the raw prediction file from `model_output/val/predictions.csv` into the input format required for Stage 2 at `phase2/stage2_input_val.csv`.
+The preprocessed data is `phase2/stage2_input_val.csv`.
 
 ## Download checkpoint
 
 `gdown --id 19KjEPrl-vLXnpVPA1W8t1gmBwZ_R3w7R -O stage2_train_v6.pth`
+
+- make sure check point locates in phase2/
 
 ## Execution
 
