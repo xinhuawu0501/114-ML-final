@@ -5,7 +5,7 @@ __pycache__/
 .DS_Store
 lightning_logs/
 *.json
-*.csv
+.csv
 wandb/
 *.png
 *.ckpt
